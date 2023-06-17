@@ -1,0 +1,54 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 166px);
+  color: #434646;
+  align-items: center;
+}
+.title {
+  display: flex;
+  background-color: rgb(36, 35, 35);
+  color: white;
+  width: 100%;
+  justify-content: center;
+  padding: 5px 0;
+  height: 20px;
+  font-weight: 700;
+}
+.row {
+  display: flex;
+  justify-content: space-around;
+}
+.form {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  max-width: 600px;
+  margin: 50px;
+  background-color: rgb(234, 239, 241);
+  padding: 30px;
+  /*border: solid 2px rgb(166, 170, 172);*/
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.empData {
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+  align-items: center;
+}
+
+.input_wrapper {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  margin-bottom: 1rem;
+}
+
+.input_wrapper label {
+  font-weight: bold;
+}
+  
+.input_wrapper input {
+  padding: 5px;
+  font-size: 1.2rem;
+}

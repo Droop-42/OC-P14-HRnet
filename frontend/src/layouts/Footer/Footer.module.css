@@ -1,0 +1,14 @@
+.footer {
+    display: flex;
+    justify-content: center;
+    border-top: 2px solid #ccc;
+    padding: 2rem 0 1.5rem;
+    background-color: rgb(36, 35, 35);
+  }
+  
+  .footer_text {
+    color: white;
+    font-weight: 700;
+    margin: 0;
+    padding: 0;
+  }
