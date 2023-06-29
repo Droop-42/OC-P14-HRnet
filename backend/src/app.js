@@ -5,7 +5,7 @@ const Employee = require('../models/employee');
 
 const app = express();
 
-mongoose.connect('mongodb+srv://admin01:admin01@cluster0.rkfib.mongodb.net/?retryWrites=true&w=majority',
+mongoose.connect('<Add mongodb connection>',
   { useNewUrlParser: true,
     useUnifiedTopology: true })
   .then(() => console.log('Connexion à MongoDB réussie !'))
