@@ -1,10 +1,34 @@
 /* eslint-disable react/react-in-jsx-scope */
 import styles from './Home.module.css'
 import Modal from "../../components/Modal/Modal";
-import React, { useState } from "react";
+import BasicDatePicker from "../../components/Datepicker/Datepicker";
+import BasicSelect from "../../components/Select/Select";
+import { useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useGetEmployeeMutation } from '../../features/employee/employeeApiEndpoints'
+import { setUserName, selectCurrentFirstName, selectCurrentLastName } from '../../features/employee/employeeSlice'
+
 
 export default function Home() {
     const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const dispatch = useDispatch()
+    const [getEmployee, { isLoading, isSuccess }] = useGetEmployeeMutation()
+
+    console.log(getEmployee)
+
+    useEffect(() => {
+        getEmployee()
+            .unwrap()
+            .then(payload => {
+                // const profileData = { ...data }
+                //dispatch(setUserName({ userFirstName: payload.body.firstName, userLastName: payload.body.lastName }))
+                //setFirstName(payload.body.firstName)
+                //setLastName(payload.body.lastName)
+                console.log(payload)
+            })
+            .catch(error => console.error(error.data.error || 'Unexpected error'))
+    }, [])
     
     return (
         <div >
@@ -21,13 +45,13 @@ export default function Home() {
                             <label htmlFor="last-name">Last Name</label>
                             <input type="text" id="last-name" />
                         </div>
-                        <div className={styles.input_wrapper}>
+                        <div className={styles.input_date_wrapper}>
                             <label htmlFor="date-of-birth">Date of Birth</label>
-                            <input id="date-of-birth" type="text" />
+                            <BasicDatePicker />
                         </div>
-                        <div className={styles.input_wrapper}>
+                        <div className={styles.input_date_wrapper}>
                             <label htmlFor="start-date">Start Date</label>
-                            <input id="start-date" type="text" />
+                            <BasicDatePicker />
                         </div>
                     </div>
                     <fieldset className={styles.empData}>
@@ -41,9 +65,8 @@ export default function Home() {
                             <label htmlFor="city">City</label>
                             <input id="city" type="text" />
                         </div>
-                        <div className={styles.input_wrapper}>
-                            <label htmlFor="state">State</label>
-                            <select name="state" id="state"></select>
+                        <div className={styles.input_select_wrapper}>
+                            <BasicSelect />
                         </div>
                         <div className={styles.input_wrapper}>
                             <label htmlFor="zip-code">Zip Code</label>
@@ -52,15 +75,18 @@ export default function Home() {
                     </fieldset>
                     </div>
                     
-
-                    <label htmlFor="department">Department</label>
-                    <select name="department" id="department">
-                        <option>Sales</option>
-                        <option>Marketing</option>
-                        <option>Engineering</option>
-                        <option>Human Resources</option>
-                        <option>Legal</option>
-                    </select>
+                    <div className={styles.input_select_wrapper}>
+                        <label htmlFor="department">Department</label>
+                        <BasicSelect />
+                        {/*<select name="department" id="department">
+                            <option>Sales</option>
+                            <option>Marketing</option>
+                            <option>Engineering</option>
+                            <option>Human Resources</option>
+                            <option>Legal</option>
+                        </select>*/}
+                    </div>
+                    
                 </form>
 
                 <button onClick={() => setIsModalOpen(true)}>Save</button>
