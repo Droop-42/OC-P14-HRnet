@@ -1,7 +1,7 @@
 .main {
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 166px);
+  min-height: calc(100vh - 146px);
   color: #434646;
   align-items: center;
 }

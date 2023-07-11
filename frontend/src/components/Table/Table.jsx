@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useMemo, useState, useEffect } from 'react';
 import { MaterialReactTable } from 'material-react-table';
 import {
   Box,
@@ -15,11 +15,30 @@ import {
 } from '@mui/material';
 import { Delete, Edit } from '@mui/icons-material';
 import { data, states } from './makeData';
+import { useGetEmployeeMutation } from '../../features/employee/employeeApiEndpoints'
 
-const Example = () => {
+const testData  = [{"_id":"6499ff427ae74995d6c5a30f","firstName":"Tony","lastName":"Stark","birthDate":"2002-12-09T00:00:00.000Z","startDate":"2002-12-09T00:00:00.000Z","street":"De la lune","city":"New York","zipCode":55785,"department":"Sales","__v":0},
+{"_id":"6499ff427ae74995","firstName":"Toto","lastName":"loubeck","birthDate":"2002-12-09T00:00:00.000Z","startDate":"2002-12-09T00:00:00.000Z","street":"De la lune","city":"New York","zipCode":55785,"department":"Sales","__v":0}
+]
+
+const Table = () => {
+
+  const [getEmployee, { isLoading, isSuccess }] = useGetEmployeeMutation()
+
   const [createModalOpen, setCreateModalOpen] = useState(false);
-  const [tableData, setTableData] = useState(() => data);
+  const [tableData, setTableData] = useState({});
   const [validationErrors, setValidationErrors] = useState({});
+
+  useEffect(() => {
+      getEmployee()
+          .unwrap()
+          .then(payload => {
+              setTableData(payload) 
+          })
+          .catch(error => console.error(error.data.error || 'Unexpected error'))
+  }, [])
+
+  
 
   const handleCreateNewRow = (values) => {
     tableData.push(values);
@@ -87,17 +106,9 @@ const Example = () => {
   const columns = useMemo(
     () => [
       {
-        accessorKey: 'id',
-        header: 'ID',
-        enableColumnOrdering: false,
-        enableEditing: false, //disable editing on this column
-        enableSorting: false,
-        size: 80,
-      },
-      {
         accessorKey: 'firstName',
         header: 'First Name',
-        size: 140,
+        size: 80,
         muiTableBodyCellEditTextFieldProps: ({ cell }) => ({
           ...getCommonEditTextFieldProps(cell),
         }),
@@ -105,31 +116,51 @@ const Example = () => {
       {
         accessorKey: 'lastName',
         header: 'Last Name',
-        size: 140,
-        muiTableBodyCellEditTextFieldProps: ({ cell }) => ({
-          ...getCommonEditTextFieldProps(cell),
-        }),
-      },
-      {
-        accessorKey: 'email',
-        header: 'Email',
-        muiTableBodyCellEditTextFieldProps: ({ cell }) => ({
-          ...getCommonEditTextFieldProps(cell),
-          type: 'email',
-        }),
-      },
-      {
-        accessorKey: 'age',
-        header: 'Age',
         size: 80,
         muiTableBodyCellEditTextFieldProps: ({ cell }) => ({
           ...getCommonEditTextFieldProps(cell),
-          type: 'number',
+        }),
+      },
+      {
+        accessorKey: 'birthDate',
+        header: 'Date of Birth',
+        size: 60,
+        muiTableBodyCellEditTextFieldProps: ({ cell }) => ({
+          ...getCommonEditTextFieldProps(cell),
+          type: 'date',
+        }),
+      },
+      {
+        accessorKey: 'startDate',
+        header: 'Start Date',
+        size: 60,
+        muiTableBodyCellEditTextFieldProps: ({ cell }) => ({
+          ...getCommonEditTextFieldProps(cell),
+          type: 'date',
+        }),
+      },
+      {
+        accessorKey: 'street',
+        header: 'Street',
+        size: 60,
+        muiTableBodyCellEditTextFieldProps: ({ cell }) => ({
+          ...getCommonEditTextFieldProps(cell),
+          type: 'string',
+        }),
+      },
+      {
+        accessorKey: 'city',
+        header: 'City',
+        size: 60,
+        muiTableBodyCellEditTextFieldProps: ({ cell }) => ({
+          ...getCommonEditTextFieldProps(cell),
+          type: 'date',
         }),
       },
       {
         accessorKey: 'state',
         header: 'State',
+        size: 60,
         muiTableBodyCellEditTextFieldProps: {
           select: true, //change to select for a dropdown
           children: states.map((state) => (
@@ -138,6 +169,24 @@ const Example = () => {
             </MenuItem>
           )),
         },
+      },
+      {
+        accessorKey: 'zipCode',
+        header: 'Zip Code',
+        size: 60,
+        muiTableBodyCellEditTextFieldProps: ({ cell }) => ({
+          ...getCommonEditTextFieldProps(cell),
+          type: 'date',
+        }),
+      },
+      {
+        accessorKey: 'department',
+        header: 'Department',
+        size: 60,
+        muiTableBodyCellEditTextFieldProps: ({ cell }) => ({
+          ...getCommonEditTextFieldProps(cell),
+          type: 'date',
+        }),
       },
     ],
     [getCommonEditTextFieldProps],
@@ -151,17 +200,17 @@ const Example = () => {
             muiTableHeadCellProps: {
               align: 'center',
             },
-            size: 120,
+            size: 80,
           },
         }}
         columns={columns}
         data={tableData}
-        editingMode="modal" //default
-        enableColumnOrdering
-        enableEditing
-        onEditingRowSave={handleSaveRowEdits}
-        onEditingRowCancel={handleCancelRowEdits}
-        renderRowActions={({ row, table }) => (
+        //editingMode="modal" //default
+        //enableColumnOrdering
+        //enableEditing
+        //onEditingRowSave={handleSaveRowEdits}
+        //onEditingRowCancel={handleCancelRowEdits}
+        /*renderRowActions={({ row, table }) => (
           <Box sx={{ display: 'flex', gap: '1rem' }}>
             <Tooltip arrow placement="left" title="Edit">
               <IconButton onClick={() => table.setEditingRow(row)}>
@@ -174,7 +223,7 @@ const Example = () => {
               </IconButton>
             </Tooltip>
           </Box>
-        )}
+        )}*/
         /*renderTopToolbarCustomActions={() => (
           <Button
             color="secondary"
@@ -255,4 +304,4 @@ const validateEmail = (email) =>
     );
 const validateAge = (age) => age >= 18 && age <= 50;
 
-export default Example;
+export default Table;

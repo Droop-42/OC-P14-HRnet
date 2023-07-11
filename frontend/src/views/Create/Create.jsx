@@ -1,5 +1,5 @@
 /* eslint-disable react/react-in-jsx-scope */
-import styles from './Home.module.css'
+import styles from './Create.module.css'
 import Modal from "../../components/Modal/Modal";
 import BasicDatePicker from "../../components/Datepicker/Datepicker";
 import BasicSelect from "../../components/Select/Select";
@@ -9,7 +9,7 @@ import { useGetEmployeeMutation } from '../../features/employee/employeeApiEndpo
 import { setUserName, selectCurrentFirstName, selectCurrentLastName } from '../../features/employee/employeeSlice'
 
 
-export default function Home() {
+export default function Create() {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const dispatch = useDispatch()
@@ -66,7 +66,8 @@ export default function Home() {
                             <input id="city" type="text" />
                         </div>
                         <div className={styles.input_select_wrapper}>
-                            <BasicSelect />
+                        <label htmlFor="zip-code">Zip Code</label>
+                            <BasicSelect labelVal="" values={[1,2,3]}/>
                         </div>
                         <div className={styles.input_wrapper}>
                             <label htmlFor="zip-code">Zip Code</label>
@@ -77,7 +78,7 @@ export default function Home() {
                     
                     <div className={styles.input_select_wrapper}>
                         <label htmlFor="department">Department</label>
-                        <BasicSelect />
+                        <BasicSelect labelVal="Department" values={[1,2,3]}/>
                         {/*<select name="department" id="department">
                             <option>Sales</option>
                             <option>Marketing</option>
@@ -86,11 +87,17 @@ export default function Home() {
                             <option>Legal</option>
                         </select>*/}
                     </div>
+                    <button onClick={() => setIsModalOpen(true)}>Save</button>
                     
                 </form>
 
-                <button onClick={() => setIsModalOpen(true)}>Save</button>
-                {isModalOpen && <Modal setIsOpen={setIsModalOpen} />}
+                
+                {
+                    isModalOpen && 
+                    <Modal setIsOpen={setIsModalOpen} >
+                        Employee Created!
+                    </Modal>   
+                }
             </div>
         </div>      
     )

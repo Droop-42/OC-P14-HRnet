@@ -2,6 +2,10 @@
   display: flex;
   color: #434646;
   padding: 10px;
-  height: calc(100vh - 166px);
+  min-height: calc(100vh - 146px);
   justify-content: center;
   }
+
+.table{
+  height: 100%;
+}

@@ -1,24 +1,16 @@
 import React from "react";
 import styles from "./Modal.module.css";
-//import { RiCloseLine } from "react-icons/ri";
+import closeIcon from './close.svg';
 
-const Modal = ({ setIsOpen }) => {
+const Modal = ({ setIsOpen, children }) => {
   return (
     <>
-      <div className={styles.darkBG} onClick={() => setIsOpen(false)} />
-      <div className={styles.centered}>
-        <div className={styles.modal}>
-          <div className={styles.modalActions}>
-            <div className={styles.actionsContainer}>
-              <button className={styles.cancelBtn} onClick={() => setIsOpen(false)}>
-                X
-              </button>
-            </div>
-            <div className={styles.modalContent}>
-                Employee Created!
-            </div>
+      <div className={styles.backGr} onClick={() => setIsOpen(false)} />
+      <div className={styles.modal}>
+          <img src ={closeIcon} className={styles.closeBtn} alt="close btn" onClick={() => setIsOpen(false)}/>
+          <div className={styles.modalContent}>
+            {children}
           </div>
-        </div>
       </div>
     </>
   );

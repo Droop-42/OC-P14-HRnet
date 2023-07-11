@@ -3,6 +3,7 @@
     flex-direction: column;
     width: 100%;
     height: 80vh;
+    min-height: calc(100vh - 146px);
 }
 .txt {
     display: flex;

@@ -15,7 +15,7 @@ export default function Header () {
                 <Link  to="/create" className={pathname.split("/")[1] === "create" ? styles.link_active : styles.link}>
                     <span>Create</span> 
                 </Link>
-                <Link  to="/user" className={pathname.split("/")[1] === "user" ? styles.link_active : styles.link}>
+                <Link  to="/current" className={pathname.split("/")[1] === "current" ? styles.link_active : styles.link}>
                     <span>Current</span>
                 </Link>
             </nav>
