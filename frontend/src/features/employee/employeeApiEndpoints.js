@@ -48,4 +48,4 @@ export const employeeApiEndpoints = hrnetApi.injectEndpoints({
     })
 })
 
-export const { useGetEmployeeMutation } = employeeApiEndpoints
+export const { useGetEmployeeMutation, useAddEmployeeMutation  } = employeeApiEndpoints

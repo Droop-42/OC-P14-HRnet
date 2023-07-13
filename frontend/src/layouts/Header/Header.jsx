@@ -9,7 +9,7 @@ export default function Header () {
 
     return (
         <div className={styles.header}>
-             <h2>HRnet {'>'} Employees</h2>
+             <h2>HRnet</h2>
             <nav className={styles.nav}>
             
                 <Link  to="/create" className={pathname.split("/")[1] === "create" ? styles.link_active : styles.link}>

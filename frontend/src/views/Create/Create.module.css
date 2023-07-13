@@ -33,7 +33,7 @@
 .empData {
   display: flex;
   flex-direction: column;
-  width: 200px;
+  /*width: 200px;*/
   align-items: center;
 }
 
@@ -44,11 +44,31 @@
   margin-bottom: 1rem;
 }
 
+.input_date_wrapper {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  margin-bottom: 1rem;
+  align-self: first baseline;
+  justify-self: flex-start;
+}
+.input_date_wrapper input{
+
+  background-color: white;
+}
+
 .input_wrapper label {
   font-weight: bold;
+  margin: 0;
 }
   
 .input_wrapper input {
   padding: 5px;
   font-size: 1.2rem;
+}
+
+.sub {
+  margin: 40px auto 20px auto;
+  padding: 10px;
+  min-width: 100px;
 }

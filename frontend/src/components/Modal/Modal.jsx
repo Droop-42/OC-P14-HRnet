@@ -5,9 +5,19 @@ import closeIcon from './close.svg';
 const Modal = ({ setIsOpen, children }) => {
   return (
     <>
-      <div className={styles.backGr} onClick={() => setIsOpen(false)} />
+      <div className={styles.backGr} 
+        onClick={() => {
+          setIsOpen(false)
+          window.location.reload(true)
+        }}
+      />
       <div className={styles.modal}>
-          <img src ={closeIcon} className={styles.closeBtn} alt="close btn" onClick={() => setIsOpen(false)}/>
+          <img src ={closeIcon} className={styles.closeBtn} alt="close btn" 
+            onClick={() => {
+              setIsOpen(false)
+              window.location.reload(true)
+            }}
+          />
           <div className={styles.modalContent}>
             {children}
           </div>

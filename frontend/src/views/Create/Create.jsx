@@ -3,91 +3,111 @@ import styles from './Create.module.css'
 import Modal from "../../components/Modal/Modal";
 import BasicDatePicker from "../../components/Datepicker/Datepicker";
 import BasicSelect from "../../components/Select/Select";
-import { useState, useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { useGetEmployeeMutation } from '../../features/employee/employeeApiEndpoints'
-import { setUserName, selectCurrentFirstName, selectCurrentLastName } from '../../features/employee/employeeSlice'
+import { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { useAddEmployeeMutation } from '../../features/employee/employeeApiEndpoints'
+import statesList from '../../assets/statesList'
+import { setEmployeeData } from '../../features/employee/employeeSlice'
+
+const depart = ['Sales', 'Marketing', 'Engineering', 'Human Resources', 'Legal']
 
 
 export default function Create() {
+    const dispatch = useDispatch()
+    const [addEmployee] = useAddEmployeeMutation()
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    const dispatch = useDispatch()
-    const [getEmployee, { isLoading, isSuccess }] = useGetEmployeeMutation()
+    const [firstName, setFirstName] = useState('')
+    const [lastName, setLastName] = useState('')
+    const [birthDate, setBirthDate] = useState('')
+    const [startDate, setStartDate] = useState('')
+    const [street, setStreet] = useState('')
+    const [city, setCity] = useState('')
+    const [state, setState] = useState('')
+    const [zipCode, setZipCode] = useState('')
+    const [department, setDepartment] = useState('')
 
-    console.log(getEmployee)
+    const handleFirstNameInput = (e) => { setFirstName(e.target.value) }
+    const handleLastNameInput = (e) => { setLastName(e.target.value) }
+    const handleBirthDateInput = (e) => { setBirthDate(toString(e.target.value)) }
+    const handleStartDateInput = (e) => { setStartDate(toString(e.target.value)) }
+    const handleStreetInput = (e) => { setStreet(e.target.value) }
+    const handleCityInput = (e) => { setCity(e.target.value) }
+    const handleStateInput = (e) => { setState(e.target.value) }
+    const handleZipCodeInput = (e) => { setZipCode(e.target.value) }
+    const handleDepartmentInput = (e) => { setDepartment(e.target.value) }
 
-    useEffect(() => {
-        getEmployee()
-            .unwrap()
-            .then(payload => {
-                // const profileData = { ...data }
-                //dispatch(setUserName({ userFirstName: payload.body.firstName, userLastName: payload.body.lastName }))
-                //setFirstName(payload.body.firstName)
-                //setLastName(payload.body.lastName)
-                console.log(payload)
-            })
-            .catch(error => console.error(error.data.error || 'Unexpected error'))
-    }, [])
+
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+        try { 
+            dispatch(setEmployeeData({ employeeFirstName:firstName, employeeLastName:lastName, employeeBirthDate:birthDate, 
+                employeeStartDate:startDate, employeeStreet:street, employeeCity:city, employeeState:state,
+                employeeZipCode:zipCode, employeeDepartment:department
+            }))
+            addEmployee({firstName:firstName, lastName:lastName, birthDate:birthDate, 
+                startDate:startDate, street:street, city:city, state:state,
+                zipCode:zipCode, department:department})
+            console.log('ok - employee created')
+        } catch (err) {
+            if (!err.status) {
+               console.log('submit error') 
+            }
+        } 
+    }
+
     
     return (
         <div >
             <div className={styles.main}>
                 <h1>Create Employees</h1> 
-                <form action="#" id="create-employee" className={styles.form}>
+                <form onSubmit={handleSubmit} id="create-employee" className={styles.form}>
                     <div className={styles.row}>
                     <div className={styles.empData}>
                         <div className={styles.input_wrapper}>
                             <label htmlFor="first-name">First Name</label>
-                            <input type="text" id="first-name" />
+                            <input type="text" onChange={handleFirstNameInput} id="first-name" value={firstName} />
                         </div>
                         <div className={styles.input_wrapper}>
                             <label htmlFor="last-name">Last Name</label>
-                            <input type="text" id="last-name" />
+                            <input type="text" onChange={handleLastNameInput} id="last-name" value={lastName} />
                         </div>
                         <div className={styles.input_date_wrapper}>
                             <label htmlFor="date-of-birth">Date of Birth</label>
-                            <BasicDatePicker />
+                            <BasicDatePicker onChange={handleBirthDateInput} id="date-of-birth"/>
                         </div>
                         <div className={styles.input_date_wrapper}>
                             <label htmlFor="start-date">Start Date</label>
-                            <BasicDatePicker />
+                            <BasicDatePicker onChange={handleStartDateInput} defaultValue={depart} value={startDate} />
                         </div>
+                        <div className={styles.input_select_wrapper}>
+                        <label htmlFor="department">Department</label>
+                        {<BasicSelect onChange={handleDepartmentInput} labelVal="" setter={setDepartment} values={depart} required/>}
+                    </div>
                     </div>
                     <fieldset className={styles.empData}>
                         <legend>Address</legend>
 
                         <div className={styles.input_wrapper}>
                             <label htmlFor="street">Street</label>
-                            <input id="street" type="text" />
+                            <input onChange={handleStreetInput} id="street" type="text" />
                         </div>
                         <div className={styles.input_wrapper}>
                             <label htmlFor="city">City</label>
-                            <input id="city" type="text" />
+                            <input onChange={handleCityInput} id="city" type="text" />
                         </div>
-                        <div className={styles.input_select_wrapper}>
-                        <label htmlFor="zip-code">Zip Code</label>
-                            <BasicSelect labelVal="" values={[1,2,3]}/>
+                        <div className={styles.input_wrapper}>
+                        <label htmlFor="States" className={styles.input_wrapper}>States</label>
+                            {<BasicSelect onChange={handleStateInput} labelVal="" values={statesList} setter={setState}/>}
                         </div>
                         <div className={styles.input_wrapper}>
                             <label htmlFor="zip-code">Zip Code</label>
-                            <input id="zip-code" type="number" />
+                            <input onChange={handleZipCodeInput} id="zip-code" type="number" />
                         </div>
                     </fieldset>
                     </div>
                     
-                    <div className={styles.input_select_wrapper}>
-                        <label htmlFor="department">Department</label>
-                        <BasicSelect labelVal="Department" values={[1,2,3]}/>
-                        {/*<select name="department" id="department">
-                            <option>Sales</option>
-                            <option>Marketing</option>
-                            <option>Engineering</option>
-                            <option>Human Resources</option>
-                            <option>Legal</option>
-                        </select>*/}
-                    </div>
-                    <button onClick={() => setIsModalOpen(true)}>Save</button>
+                    <button className={styles.sub} type='submit' onClick={() => setIsModalOpen(true)} >Save</button>
                     
                 </form>
 

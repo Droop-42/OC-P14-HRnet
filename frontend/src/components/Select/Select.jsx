@@ -7,11 +7,12 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
 
-export default function BasicSelect({labelVal, values}) {
-  const [state, setState] = React.useState('');
+export default function BasicSelect({labelVal, values, setter}) {
+  const [selectedValue, setSelectedValue] = useState('');
 
   const handleChange = (event) => {
-    setState(event.target.value);
+    setSelectedValue(event.target.value);
+    setter(event.target.value);
   };
 
   return (
@@ -21,7 +22,7 @@ export default function BasicSelect({labelVal, values}) {
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          value={state}
+          value={selectedValue}
           label={labelVal}
           onChange={handleChange}
         >

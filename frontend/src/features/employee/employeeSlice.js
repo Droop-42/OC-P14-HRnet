@@ -6,7 +6,7 @@ const employeeSlice = createSlice({
     reducers: {
         setEmployeeData: (state, action) => {
             const { employeeFirstName, employeeLastName, employeeBirthDate, 
-                    employeeStartDate, employeeStreet, employeeCity,
+                    employeeStartDate, employeeStreet, employeeCity, employeeState,
                     employeeZipCode, employeeDepartment
                 } = action.payload
             state.firstName = employeeFirstName
@@ -15,6 +15,7 @@ const employeeSlice = createSlice({
             state.startDate = employeeStartDate
             state.street = employeeStreet
             state.city = employeeCity
+            state.state = employeeState
             state.zipCode = employeeZipCode
             state.department = employeeDepartment
         },

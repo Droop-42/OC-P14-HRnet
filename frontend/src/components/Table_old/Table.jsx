@@ -1,23 +1,23 @@
 import React, { useCallback, useMemo, useState, useEffect } from 'react';
 import { MaterialReactTable } from 'material-react-table';
 import {
-  Box,
+  /*Box,
   Button,
   Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
-  IconButton,
+  IconButton,*/
   MenuItem,
-  Stack,
+  /*Stack,
   TextField,
-  Tooltip,
+  Tooltip,*/
 } from '@mui/material';
-import { Delete, Edit } from '@mui/icons-material';
+//import { Delete, Edit } from '@mui/icons-material';
 import { data, states } from './makeData';
 import { useGetEmployeeMutation } from '../../features/employee/employeeApiEndpoints'
 
-const testData  = [{"_id":"6499ff427ae74995d6c5a30f","firstName":"Tony","lastName":"Stark","birthDate":"2002-12-09T00:00:00.000Z","startDate":"2002-12-09T00:00:00.000Z","street":"De la lune","city":"New York","zipCode":55785,"department":"Sales","__v":0},
+const mockData  = [{"_id":"6499ff427ae74995d6c5a30f","firstName":"Tony","lastName":"Stark","birthDate":"2002-12-09T00:00:00.000Z","startDate":"2002-12-09T00:00:00.000Z","street":"De la lune","city":"New York","zipCode":55785,"department":"Sales","__v":0},
 {"_id":"6499ff427ae74995","firstName":"Toto","lastName":"loubeck","birthDate":"2002-12-09T00:00:00.000Z","startDate":"2002-12-09T00:00:00.000Z","street":"De la lune","city":"New York","zipCode":55785,"department":"Sales","__v":0}
 ]
 
@@ -39,12 +39,12 @@ const Table = () => {
   }, [])
 
   
-
+/*
   const handleCreateNewRow = (values) => {
     tableData.push(values);
     setTableData([...tableData]);
-  };
-
+  };*/
+/*
   const handleSaveRowEdits = async ({ exitEditingMode, row, values }) => {
     if (!Object.keys(validationErrors).length) {
       tableData[row.index] = values;
@@ -52,26 +52,26 @@ const Table = () => {
       setTableData([...tableData]);
       exitEditingMode(); //required to exit editing mode and close modal
     }
-  };
-
+  };*/
+/*
   const handleCancelRowEdits = () => {
     setValidationErrors({});
-  };
-
+  };*/
+/*
   const handleDeleteRow = useCallback(
     (row) => {
       /*if (
         !confirm(`Are you sure you want to delete ${row.getValue('firstName')}`)
       ) {
         return;
-      }*/
+      }
       //send api delete request here, then refetch or update local table data for re-render
       tableData.splice(row.index, 1);
       setTableData([...tableData]);
     },
     [tableData],
-  );
-
+  );*/
+/*
   const getCommonEditTextFieldProps = useCallback(
     (cell) => {
       return {
@@ -101,7 +101,7 @@ const Table = () => {
       };
     },
     [validationErrors],
-  );
+  );*/
 
   const columns = useMemo(
     () => [
@@ -109,53 +109,31 @@ const Table = () => {
         accessorKey: 'firstName',
         header: 'First Name',
         size: 80,
-        muiTableBodyCellEditTextFieldProps: ({ cell }) => ({
-          ...getCommonEditTextFieldProps(cell),
-        }),
       },
       {
         accessorKey: 'lastName',
         header: 'Last Name',
         size: 80,
-        muiTableBodyCellEditTextFieldProps: ({ cell }) => ({
-          ...getCommonEditTextFieldProps(cell),
-        }),
       },
       {
         accessorKey: 'birthDate',
         header: 'Date of Birth',
         size: 60,
-        muiTableBodyCellEditTextFieldProps: ({ cell }) => ({
-          ...getCommonEditTextFieldProps(cell),
-          type: 'date',
-        }),
       },
       {
         accessorKey: 'startDate',
         header: 'Start Date',
         size: 60,
-        muiTableBodyCellEditTextFieldProps: ({ cell }) => ({
-          ...getCommonEditTextFieldProps(cell),
-          type: 'date',
-        }),
       },
       {
         accessorKey: 'street',
         header: 'Street',
         size: 60,
-        muiTableBodyCellEditTextFieldProps: ({ cell }) => ({
-          ...getCommonEditTextFieldProps(cell),
-          type: 'string',
-        }),
       },
       {
         accessorKey: 'city',
         header: 'City',
         size: 60,
-        muiTableBodyCellEditTextFieldProps: ({ cell }) => ({
-          ...getCommonEditTextFieldProps(cell),
-          type: 'date',
-        }),
       },
       {
         accessorKey: 'state',
@@ -174,22 +152,14 @@ const Table = () => {
         accessorKey: 'zipCode',
         header: 'Zip Code',
         size: 60,
-        muiTableBodyCellEditTextFieldProps: ({ cell }) => ({
-          ...getCommonEditTextFieldProps(cell),
-          type: 'date',
-        }),
       },
       {
         accessorKey: 'department',
         header: 'Department',
         size: 60,
-        muiTableBodyCellEditTextFieldProps: ({ cell }) => ({
-          ...getCommonEditTextFieldProps(cell),
-          type: 'date',
-        }),
       },
     ],
-    [getCommonEditTextFieldProps],
+    [],
   );
 
   return (
@@ -245,6 +215,7 @@ const Table = () => {
 };
 
 //example of creating a mui dialog modal for creating new rows
+/*
 export const CreateNewAccountModal = ({ open, columns, onClose, onSubmit }) => {
   const [values, setValues] = useState(() =>
     columns.reduce((acc, column) => {
@@ -284,16 +255,17 @@ export const CreateNewAccountModal = ({ open, columns, onClose, onSubmit }) => {
           </Stack>
         </form>
       </DialogContent>
+      {/*
       <DialogActions sx={{ p: '1.25rem' }}>
         <Button onClick={onClose}>Cancel</Button>
         <Button color="secondary" onClick={handleSubmit} variant="contained">
           Create New Account
         </Button>
-      </DialogActions>
+      </DialogActions>}
     </Dialog>
   );
 };
-
+/*
 const validateRequired = (value) => !!value.length;
 const validateEmail = (email) =>
   !!email.length &&
@@ -302,6 +274,6 @@ const validateEmail = (email) =>
     .match(
       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
     );
-const validateAge = (age) => age >= 18 && age <= 50;
+const validateAge = (age) => age >= 18 && age <= 50;*/
 
 export default Table;
