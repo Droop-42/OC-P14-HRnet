@@ -1,5 +1,5 @@
 .main {
-  background-color: rgb(234, 239, 241);
+  background-color: rgba(234, 239, 241, 0.4);
   display: flex;
   flex-direction: column;
   min-height: calc(100vh - 146px);

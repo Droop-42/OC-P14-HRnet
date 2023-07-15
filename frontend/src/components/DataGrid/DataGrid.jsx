@@ -33,15 +33,17 @@ const columns = [
 
 ];
 
-// use mock data for speed test
-/*
-const rows  = [{"_id":"6499ff427ae74995d6c5a30f","firstName":"Tony","lastName":"Stark","birthDate":"2002-12-09T00:00:00.000Z","startDate":"2002-12-09T00:00:00.000Z","street":"De la lune","city":"New York","zipCode":55785,"department":"Sales","__v":0},
-{"_id":"6499ff427ae74995","firstName":"Toto","lastName":"loubeck","birthDate":"2002-12-09T00:00:00.000Z","startDate":"2002-12-09T00:00:00.000Z","street":"De la lune","city":"New York","zipCode":55785,"department":"Sales","__v":0}
-]*/
 
 export default function DataTable() {
   const [getEmployee, { isLoading, isSuccess }] = useGetEmployeeMutation()
   const [rows, setRows] = useState([]);
+
+  // use mock data for speed test
+  /*useEffect(() => {
+    setRows([{"_id":"6499ff427ae74995d6c5a30f","firstName":"Tony","lastName":"Stark","birthDate":"2002-12-09T00:00:00.000Z","startDate":"2002-12-09T00:00:00.000Z","street":"De la lune","city":"New York","zipCode":55785,"department":"Sales","__v":0},
+      {"_id":"6499ff427ae74995","firstName":"Toto","lastName":"loubeck","birthDate":"2002-12-09T00:00:00.000Z","startDate":"2002-12-09T00:00:00.000Z","street":"De la lune","city":"New York","zipCode":55785,"department":"Sales","__v":0}
+    ])
+  }, [])*/
 
   useEffect(() => {
       getEmployee()
