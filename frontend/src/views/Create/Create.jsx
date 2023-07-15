@@ -29,8 +29,8 @@ export default function Create() {
 
     const handleFirstNameInput = (e) => { setFirstName(e.target.value) }
     const handleLastNameInput = (e) => { setLastName(e.target.value) }
-    const handleBirthDateInput = (e) => { setBirthDate(toString(e.target.value)) }
-    const handleStartDateInput = (e) => { setStartDate(toString(e.target.value)) }
+    const handleBirthDateInput = (e) => { setBirthDate(e.target.value) }
+    const handleStartDateInput = (e) => { setStartDate(e.target.value) }
     const handleStreetInput = (e) => { setStreet(e.target.value) }
     const handleCityInput = (e) => { setCity(e.target.value) }
     const handleStateInput = (e) => { setState(e.target.value) }
@@ -41,8 +41,8 @@ export default function Create() {
     const handleSubmit = async (e) => {
         e.preventDefault()
         try { 
-            dispatch(setEmployeeData({ employeeFirstName:firstName, employeeLastName:lastName, employeeBirthDate:birthDate, 
-                employeeStartDate:startDate, employeeStreet:street, employeeCity:city, employeeState:state,
+            dispatch(setEmployeeData({ employeeFirstName:firstName, employeeLastName:lastName, /*employeeBirthDate:birthDate, 
+                employeeStartDate:startDate,*/ employeeStreet:street, employeeCity:city, employeeState:state,
                 employeeZipCode:zipCode, employeeDepartment:department
             }))
             addEmployee({firstName:firstName, lastName:lastName, birthDate:birthDate, 
@@ -74,11 +74,11 @@ export default function Create() {
                         </div>
                         <div className={styles.input_date_wrapper}>
                             <label htmlFor="date-of-birth">Date of Birth</label>
-                            <BasicDatePicker onChange={handleBirthDateInput} id="date-of-birth"/>
+                            <BasicDatePicker onChange={handleBirthDateInput} id="date-of-birth" setter={setBirthDate}/>
                         </div>
                         <div className={styles.input_date_wrapper}>
                             <label htmlFor="start-date">Start Date</label>
-                            <BasicDatePicker onChange={handleStartDateInput} defaultValue={depart} value={startDate} />
+                            <BasicDatePicker onChange={handleStartDateInput} setter={setStartDate}/>
                         </div>
                         <div className={styles.input_select_wrapper}>
                         <label htmlFor="department">Department</label>
@@ -96,8 +96,8 @@ export default function Create() {
                             <label htmlFor="city">City</label>
                             <input onChange={handleCityInput} id="city" type="text" />
                         </div>
-                        <div className={styles.input_wrapper}>
-                        <label htmlFor="States" className={styles.input_wrapper}>States</label>
+                        <div className={styles.input_select_wrapper}>
+                        <label htmlFor="States">States</label>
                             {<BasicSelect onChange={handleStateInput} labelVal="" values={statesList} setter={setState}/>}
                         </div>
                         <div className={styles.input_wrapper}>

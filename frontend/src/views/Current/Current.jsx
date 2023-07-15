@@ -11,7 +11,7 @@ export default function User() {
             <div id="employee-div" >
                 <h1>Current Employees</h1>
                 {/*<Table className={styles.table}/>*/}
-                <DataGrid />              
+                <DataGrid className={styles.table}/>              
             </div>
         </div>      
     )

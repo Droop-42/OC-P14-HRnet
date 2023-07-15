@@ -3,8 +3,8 @@ const mongoose = require('mongoose');
 const employeeSchema = mongoose.Schema({
   firstName: { type: String, required: false },
   lastName: { type: String, required: false },
-  birthDate: { type: String, required: false },
-  startDate: { type: String, required: false },
+  birthDate: { type: Date, required: false },
+  startDate: { type: Date, required: false },
   street: { type: String, required: false },
   city: { type: String, required: false },
   state: { type: String, required: false },

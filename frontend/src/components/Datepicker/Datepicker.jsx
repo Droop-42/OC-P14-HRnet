@@ -1,15 +1,26 @@
 //import * as React from 'react';
+import { useState } from "react";
+import 'dayjs/locale/en-gb';
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
-export default function BasicDatePicker() {
+export default function BasicDatePicker({setter}) {
+  const [value, setValue] = useState(null);
+
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <DemoContainer components={['DatePicker']}>
         <DatePicker 
-          label=""
+          value = {value}
+          format="DD/MM/YYYY" 
+          onChange = {
+            (newValue) => {
+              setValue(newValue)
+              setter(newValue)
+            }
+          } 
         />
       </DemoContainer>
     </LocalizationProvider>

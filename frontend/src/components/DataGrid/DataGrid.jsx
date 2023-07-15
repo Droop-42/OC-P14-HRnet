@@ -1,6 +1,7 @@
 //import * as React from 'react';
 import { useCallback, useMemo, useState, useEffect } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
+import moment from "moment";
 
 import { useGetEmployeeMutation } from '../../features/employee/employeeApiEndpoints'
 
@@ -8,8 +9,22 @@ const columns = [
   //{ field: 'id', headerName: 'ID', width: 70 },
   { field: 'firstName', headerName: 'First Name', width: 120 },
   { field: 'lastName', headerName: 'Last Name', width: 120 },
-  { field: 'birthDate', headerName: 'Date of Birth', width: 120 },
-  { field: 'startDate', headerName: 'Start Date', width: 120 },
+  { field: 'birthDate', headerName: 'Date of Birth', width: 120,  
+    renderCell: (params) => {
+      if (!params.value) {
+        return ''
+      } else {
+      return moment(params.value).utc().format('DD/MM/YYYY');
+    }},
+  },
+  { field: 'startDate', headerName: 'Start Date', width: 120, 
+    renderCell: (params) => {
+      if (!params.value) {
+        return ''
+      } else {
+      return moment(params.value).utc().format('DD/MM/YYYY');
+    }},
+  },
   { field: 'street', headerName: 'Street', width: 120 },
   { field: 'city', headerName: 'City', width: 120 },
   { field: 'state', headerName: 'State', width: 120 },

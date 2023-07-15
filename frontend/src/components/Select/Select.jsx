@@ -26,7 +26,7 @@ export default function BasicSelect({labelVal, values, setter}) {
           label={labelVal}
           onChange={handleChange}
         >
-        {values.map( val => {return <MenuItem value={val}>{val}</MenuItem>} )}
+        {values.map( val => {return <MenuItem key={'dep-'+val} value={val}>{val}</MenuItem>} )}
         </Select>
       </FormControl>
     </Box>

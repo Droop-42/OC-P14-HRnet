@@ -5,14 +5,14 @@ const employeeSlice = createSlice({
     initialState: { firstName: null, lastName: null },
     reducers: {
         setEmployeeData: (state, action) => {
-            const { employeeFirstName, employeeLastName, employeeBirthDate, 
-                    employeeStartDate, employeeStreet, employeeCity, employeeState,
+            const { employeeFirstName, employeeLastName, /*employeeBirthDate, 
+                    employeeStartDate,*/ employeeStreet, employeeCity, employeeState,
                     employeeZipCode, employeeDepartment
                 } = action.payload
             state.firstName = employeeFirstName
             state.lastName = employeeLastName
-            state.birthDate = employeeBirthDate
-            state.startDate = employeeStartDate
+            //state.birthDate = employeeBirthDate
+            //state.startDate = employeeStartDate
             state.street = employeeStreet
             state.city = employeeCity
             state.state = employeeState
